@@ -51,14 +51,14 @@ func streamHandler() echo.HandlerFunc {
 
 		zipWriter := zip.NewWriter(c.Response())
 
-		speed := size / seconds   // MB/sec
-		sleepTime := 1000 / speed // in millesconds
+		speed := float64(size) / float64(seconds) // MB/sec
+		sleepTime := 1000 / speed                 // in millesconds
 		startTime := time.Now()
 		defer func() {
 			fmt.Printf("Duration: %v\n", time.Now().Sub(startTime))
 		}()
 
-		fmt.Printf("[%v]: sending at %d MB/sec\n", startTime, speed)
+		fmt.Printf("[%v]: sending at %.2f MB/sec\n", startTime, speed)
 
 		for i := 0; i < size; i++ {
 			header := &zip.FileHeader{
