@@ -76,11 +76,10 @@ func streamHandler() echo.HandlerFunc {
 				fmt.Printf("%s\n", msg)
 				return fmt.Errorf(msg)
 			}
-			time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 			zipWriter.Flush()
+			time.Sleep(time.Duration(sleepTime) * time.Millisecond)
 		}
-		zipWriter.Close()
 		fmt.Printf("Done sending")
-		return nil
+		return zipWriter.Close()
 	}
 }
